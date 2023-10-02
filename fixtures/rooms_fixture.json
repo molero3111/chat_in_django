@@ -1,0 +1,58 @@
+[
+  {
+    "model": "room.room",
+    "pk": 1,
+    "fields": {
+      "name": "Work",
+      "slug": "work"
+    }
+  },
+  {
+    "model": "room.room",
+    "pk": 2,
+    "fields": {
+      "name": "Casual",
+      "slug": "casual"
+    }
+  },
+  {
+    "model": "room.room",
+    "pk": 3,
+    "fields": {
+      "name": "Art",
+      "slug": "art"
+    }
+  },
+  {
+    "model": "room.room",
+    "pk": 4,
+    "fields": {
+      "name": "Technology",
+      "slug": "technology"
+    }
+  },
+  {
+    "model": "room.room",
+    "pk": 5,
+    "fields": {
+      "name": "Games",
+      "slug": "games"
+    }
+  },
+  {
+    "model": "room.room",
+    "pk": 6,
+    "fields": {
+      "name": "Hobby",
+      "slug": "hobby"
+    }
+  },
+  {
+    "model": "room.room",
+    "pk": 7,
+    "fields": {
+      "name": "Sports",
+      "slug": "sports"
+    }
+  }
+]

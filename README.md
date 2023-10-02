@@ -4,9 +4,8 @@ Welcome to the Room-Based Chat App! This web application allows users to join ch
 
 ## Features
 
-- Create and join chat rooms.
+- Join chat rooms.
 - Real-time messaging using WebSocket connections.
-- A clean and intuitive user interface.
 
 ## Technologies Used
 
@@ -14,7 +13,7 @@ Welcome to the Room-Based Chat App! This web application allows users to join ch
 - Channels: Extends Django to handle WebSocket connections and real-time events.
 - Daphne: An ASGI (Asynchronous Server Gateway Interface) server for serving Django Channels applications.
 - Bootstrap: Used for styling the frontend.
-- PostgreSQL: The database for storing user data and chat messages.
+- SQLite: The database for storing user data and chat messages.
 
 ## Getting Started
 
@@ -38,7 +37,10 @@ To run this project locally, follow these steps:
 ## 3. Apply database migrations
     python manage.py migrate
 
-## 4. Run local server
+## 4. Load room fixtures
+    python manage.py loaddata python manage.py loaddata fixtures/rooms_fixture.json
+
+## 5. Run local server
     python manage.py runserver
 
 ## Usage
