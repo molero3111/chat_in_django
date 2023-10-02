@@ -39,6 +39,9 @@ To run this project locally, follow these steps:
 
 ## 4. Load room fixtures
     python manage.py loaddata fixtures/rooms_fixture.json
+    NOTE: In case you get error that room table is not found, 
+    execute:  python manage.py makemigrations room, then
+    python manage.py migrate, again.
 
 ## 5. Run local server
     python manage.py runserver
