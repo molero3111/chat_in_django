@@ -19,7 +19,6 @@ from room import routing
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'djangochat.settings')
 
-# Define your routing dictionary
 protocol_mapping = {
     'websocket': AllowedHostsOriginValidator(
         AuthMiddlewareStack(
@@ -34,5 +33,5 @@ protocol_mapping = {
 if ENVIRONMENT == 'LOCAL':
     protocol_mapping['http'] = get_asgi_application()
 
-# Create the ProtocolTypeRouter with the routing dictionary
+# Create the ProtocolTypeRouter with its mapping
 application = ProtocolTypeRouter(protocol_mapping)
