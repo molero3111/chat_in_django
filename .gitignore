@@ -39,3 +39,6 @@ local_settings.py
 
 # Ignore generated documentation
 docs/_build/
+
+# Environment file
+djangochat/environment.py
