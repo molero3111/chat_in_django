@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  web:
+    image: chat-image  # Use the name of your Docker image
+    container_name: chat-app
+    ports:
+      - "8000:8000"  # Map the container's port 8000 to the host's port 8000
+    volumes:
+      - ./chat_in_django:/app  # Mount your project directory into the container
+    environment:
+      - DEBUG=True  # Set environment variables as needed
+    command: [ "gunicorn", "djangochat.wsgi:application", "--bind", "0.0.0.0:8000" ]
+
+

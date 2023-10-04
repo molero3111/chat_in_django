@@ -42,3 +42,6 @@ docs/_build/
 
 # Environment file
 djangochat/environment.py
+
+# Docker
+chat-image:latest
