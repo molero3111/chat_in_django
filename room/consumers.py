@@ -9,7 +9,7 @@ from room.models import Room, Message
 
 class ChatConsumer(AsyncWebsocketConsumer):
     def __init__(self, *args, **kwargs):
-        super().__init__(args, kwargs)
+        super().__init__(*args, **kwargs)
         self.room_name = None
         self.room_group_name = None
 

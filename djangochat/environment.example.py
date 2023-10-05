@@ -2,6 +2,6 @@
 # for production deployment use your actual domain
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
-# If set to 'LOCAL', it will use daphne dev server to handle
+# If set to True, it will use daphne dev server to handle
 # both HTTP and websocket connections
-ENVIRONMENT = 'LOCAL'
+DAPHNE_FOR_HTTP = True

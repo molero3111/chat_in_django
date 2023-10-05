@@ -14,7 +14,7 @@ from channels.routing import ProtocolTypeRouter, URLRouter
 from channels.security.websocket import AllowedHostsOriginValidator
 from django.core.asgi import get_asgi_application
 
-from djangochat.environment import ENVIRONMENT
+from djangochat.environment import DAPHNE_FOR_HTTP
 from room import routing
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'djangochat.settings')
@@ -29,9 +29,9 @@ protocol_mapping = {
     )
 }
 
-# If in LOCAL environment, add http handler
-if ENVIRONMENT == 'LOCAL':
+# If in LOCAL environment, it adds http handler
+if DAPHNE_FOR_HTTP:
     protocol_mapping['http'] = get_asgi_application()
 
-# Create the ProtocolTypeRouter with its mapping
+# Creates the ProtocolTypeRouter with its mapping
 application = ProtocolTypeRouter(protocol_mapping)
