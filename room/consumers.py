@@ -1,6 +1,6 @@
 import json
 
-from asgiref.sync import sync_to_async
+from channels.db import database_sync_to_async
 from channels.generic.websocket import AsyncWebsocketConsumer
 from django.contrib.auth.models import User
 
@@ -14,7 +14,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         self.room_group_name = None
 
     async def connect(self):
-        # Check if user is authenticated
+        # Check if the user is authenticated
         if self.scope["user"].is_authenticated:
             self.room_name = self.scope['url_route']['kwargs']['room_name']
             self.room_group_name = f"chat_{self.room_name}"
@@ -64,9 +64,12 @@ class ChatConsumer(AsyncWebsocketConsumer):
             'room': room
         }))
 
-    @sync_to_async
+    @database_sync_to_async
     def save_message(self, username, room, message):
-        user = User.objects.get(username=username)
-        room = Room.objects.get(slug=room)
-
-        Message.objects.create(user=user, room=room, content=message)
+        try:
+            user = User.objects.get(username=username)
+            room_obj = Room.objects.get(slug=room)
+            Message.objects.create(user=user, room=room_obj, content=message)
+        except (User.DoesNotExist, Room.DoesNotExist) as e:
+            # Here you can handle the exception, for example, logging it.
+            pass

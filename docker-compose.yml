@@ -15,7 +15,9 @@ services:
   daphne:
     image: chat-image  # Use the same image as 'web'
     container_name: chat-daphne
-    command: ["daphne", "djangochat.asgi:application", "--bind", "0.0.0.0:8001"]
+    volumes:
+      - daphne-socket:/tmp  # Shared volume for UNIX socket
+    command: [ "daphne", "-u", "/tmp/daphne.sock", "djangochat.asgi:application" ]
     depends_on:
       - web  # Ensure 'web' container is up before starting 'daphne'
 
@@ -26,9 +28,12 @@ services:
       - "80:80"  # Map host's port 80 to Nginx container's port 80
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
+      - daphne-socket:/tmp  # Shared volume for UNIX socket
     depends_on:
       - web  # Ensure 'web' container is up before starting 'nginx'
       - daphne  # Ensure 'daphne' container is up before starting 'nginx'
 
+volumes:
+  daphne-socket:  # Definition of the shared volume
 
 
