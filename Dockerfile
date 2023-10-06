@@ -15,8 +15,3 @@ COPY . /chat_in_django
 # Install needed packages specified in requirements.txt
 RUN pip install -r requirements.txt
 
-# Expose a port for the Django development server
-EXPOSE 8000
-
-#  run application
-# CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
