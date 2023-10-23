@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from room.models import Room, Message
 
 
+# TODO: fix websocket connection on docker, check nginx file and docker compose file
 class ChatConsumer(AsyncWebsocketConsumer):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

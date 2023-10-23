@@ -11,7 +11,9 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-from djangochat import environment
+from decouple import Config, Csv
+
+config = Config('.env')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,12 +22,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-0+y#tywx=y6=%znejt7uag732eji8o8xcis$=!lb_1^y9y3l)!'
+SECRET_KEY = config('SECRET_KEY', default='insecure-39472947', cast=str)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = environment.ALLOWED_HOSTS
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='').split(' ')
+CSRF_TRUSTED_ORIGINS = config('CSRF_TRUSTED_ORIGINS', default='').split(' ')
 
 LOGOUT_REDIRECT_URL = '/'
 LOGIN_REDIRECT_URL = '/rooms/'
@@ -92,6 +95,26 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+if config('USING_DOCKER', default=False, cast=bool):
+    CHANNEL_LAYERS = {
+        'default': {
+            'BACKEND': 'channels_redis.core.RedisChannelLayer',
+            'CONFIG': {
+                "hosts": [('redis', 6379)],
+            },
+        },
+    }
+
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.contrib.gis.db.backends.postgis",
+            "HOST": config("POSTGRES_HOST", default='db', cast=str),
+            "PORT": config("POSTGRES_PORT", default='5432', cast=str),
+            "NAME": config("POSTGRES_DB", default='chat_db', cast=str),
+            "USER": config("POSTGRES_USER", default='chat_admin', cast=str),
+            "PASSWORD": config("POSTGRES_PASSWORD", default='9287532461', cast=str),
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
