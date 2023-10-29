@@ -23,8 +23,7 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile
-    command: sh -c "export DJANGO_SETTINGS_MODULE=djangochat.settings && \
-      daphne djangochat.asgi:application --port 8000 --bind 0.0.0.0"
+    command: sh -c "daphne djangochat.asgi:application --port 8000 --bind 0.0.0.0"
     volumes:
       - static_volume:/home/app/web/static
     expose:
